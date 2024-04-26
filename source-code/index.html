@@ -7,36 +7,29 @@
   <link rel="stylesheet" href="index.css">
   <link rel="shortcut icon" type="image/x-icon" href="./infinite_innovators-removebg-preview.png"/>
   <script>
-    document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById("history").addEventListener("click", function(){
-        window.location.href = "history.html";
-      });
-  
-      setInterval(() => {
-        fetch('http://localhost:8000/getServerData')
-          .then(response => response.text())
-          .then(data => {
-            const ppmValueElement = document.getElementById('ppmvalue');
-            ppmValueElement.innerText = data;
-  
-            const ppmValue = parseFloat(data);
-            const tempelement = document.getElementById('safeorunsafe');
-  
-            if (ppmValue > 20) {
-              tempelement.innerText = 'unsafe';
-              tempelement.style.color = 'red';
-            } else {
-              tempelement.innerText = 'safe';
-              tempelement.style.color = 'green';
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching server data:', error);
-          });
-      }, 2000);
-    });
+    document.addEventListener("DOMContentLoaded" , function(){
+      document.getElementById("history").addEventListener("click" , function(){
+        window.location.href = "history.html"
+      })
+    })
+    setInterval(() => {
+      fetch('http://localhost:8000/getServerData')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('ppmvalue').innerText = data;
+          if(data < 20){
+            document.getElementById('safeorunsafe').innerHTML = "safe"
+            document.getElementById('safeorunsafe').style.color = "green"
+          }else{
+            document.getElementById('safeorunsafe').innerHTML = "unsafe"
+            document.getElementById('safeorunsafe').style.color = "red"            
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching server data:', error);
+        });
+    }, 2000);
   </script>
-  
 </head>
 <body>
   <section class="base">
